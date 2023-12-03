@@ -1,0 +1,11 @@
+{
+  "name": "web_server_native_node_js",
+  "version": "1.0.0",
+  "description": "Belajar membuat web server native dengan Node.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Nico Ariest Putra",
+  "license": "ISC"
+}
