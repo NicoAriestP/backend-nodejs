@@ -10,12 +10,17 @@ const requestListener = (request, response) => {
   if (url === "/") {
     if (method === "GET") {
       response.statusCode = 200;
-    //   response biasa
-    //   response.end("<h1>Ini adalah Homepage</h1>");
-    //   response JSON
-      response.end(JSON.stringify({
-        message: 'Ini adalah Homepage',
-      }));
+      response.setHeader("Content-Type", "application/json");
+      response.setHeader("X-Powered-By", "NodeJS");
+
+      //   response biasa
+      //   response.end("<h1>Ini adalah Homepage</h1>");
+      //   response JSON
+      response.end(
+        JSON.stringify({
+          message: "Ini adalah Homepage",
+        })
+      );
     }
     // else if (method === "POST") {
     //   response.end("<h1>Halaman tidak bisa diakses dengan POST request</h1>");
@@ -29,19 +34,23 @@ const requestListener = (request, response) => {
     else {
       response.statusCode = 400;
       // response biasa
-    //   response.end(
-    //     `<h1>Halaman tidak dapat diakses dengan ${method} request</h1>`
-    //   );
+      //   response.end(
+      //     `<h1>Halaman tidak dapat diakses dengan ${method} request</h1>`
+      //   );
       // response JSON
-      response.end(JSON.stringify({
-        message: `Halaman tidak dapat diakses dengan ${method} request`,
-      }));
+      response.end(
+        JSON.stringify({
+          message: `Halaman tidak dapat diakses dengan ${method} request`,
+        })
+      );
     }
   } else if (url === "/about") {
     if (method === "GET") {
       response.end("<h1>Halo ! ini adalah halaman about</h1>");
     }
     if (method === "POST") {
+      response.setHeader("Content-Type", "application/json");
+      response.setHeader("X-Powered-By", "NodeJS");
       let body = [];
       request.on("data", (chunk) => {
         body.push(chunk);
@@ -49,7 +58,7 @@ const requestListener = (request, response) => {
       request.on("end", () => {
         body = Buffer.concat(body).toString();
         const { name } = JSON.parse(body);
-        response.end(`<h1>Halo, ${name} ini adalah halaman About!</h1>`);
+        response.end(`<h1>Salam Kenal ${name}!</h1>`);
       });
     }
     if (method === "PUT") {
